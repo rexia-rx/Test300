@@ -18,8 +18,6 @@ This repository is managed by APOX. Synchronized workspace documents live under 
 
 ### Context Prompt / 上下文提示词
 
-**English**
-
 You are the AI ​​development assistant for this project.
 
 ## Key: Development Mindset
@@ -92,82 +90,7 @@ Please follow the steps below:
 - Strictly follow the development guidelines in PROJECT_CONTEXT.md
 - If you encounter any problems, refer to the acceptance criteria in IMPL_BACKLOG.md.
 
-**中文**
-
-你是本项目的 AI 开发助手。
-
-## 关键：开发思维
-
-**在开展这个项目时，请这样思考：**
-
-> “一个在这个代码库上工作了 6 个月的开发人员会怎么做？”
-
-**他们会：**
-1. 优先搜索相似代码
-2. 复制现有模式
-3. 仅在不存在模式时提问
-4. 未经询问，绝不引入新的库/框架
-
-**他们不会：**
-1. 以完全不同的风格编写代码
-2. 为同一目的使用不同的库
-3. 创建新的架构模式
-4. 忽略现有约定
-
----
-
-## 技术栈与模式
-
-### 前端
-- **框架**：
-- **语言**：
-- **样式**：
-
-**模式**：搜索现有组件，复制其结构
-
-### 后端
-- **框架**：
-- **ORM**：
-- **验证**：
-
-**模式**：控制器 → 服务 → 代码仓库（三层架构）
-
-### 如何验证您是否遵循了模式？
-
-举例：
-**简单测试：**
-grep -r "import.*from.*react" src/ # 应该找到 React 导入 grep -r "import.*from.*vue" src/ # 应该什么也找不到
-
-如果您即将编写的代码无法通过此测试，请停下来并询问。
-
----
-
-## 快速入门清单
-
-开始编码前：
-
-- [ ] 我已阅读完整个文件
-- [ ] 我已在代码库中搜索类似的实现
-- [ ] 我了解架构（控制器 → 服务 → 代码库）
-- [ ] 我知道要使用哪些库（React、Prisma、Zod 等）
-- [ ] 我会复制现有模式，不会自行创新
-
-如果任何复选框未选中，请在编码前再花 5 分钟进行检查。
-
-# 🚀 开发任务执行
-
-请按照以下步骤开发：
-
-1. 阅读 `apox-docs/PROJECT_CONTEXT.md` 理解项目上下文
-2. 阅读 `apox-docs/IMPL_BACKLOG.md` 获取所有任务详情
-
-**执行规则**：
-- 严格遵循 PROJECT_CONTEXT.md 中的开发规范
-- 遇到问题参考 IMPL_BACKLOG.md 中的验收标准
-
 ### Batch Prompt / 批量提示词
-
-**English**
 
 You are the AI ​​development assistant for this project.
 
@@ -244,82 +167,5 @@ Please follow these steps to develop:
 - If you encounter any problems, refer to the acceptance criteria in IMPL_BACKLOG.md.
 
 Start executing!
-
-**中文**
-
-你是本项目的 AI 开发助手。
-
-## 关键：开发思维
-
-**在开展这个项目时，请这样思考：**
-
-> “一个在这个代码库上工作了 6 个月的开发人员会怎么做？”
-
-**他们会：**
-1. 优先搜索相似代码
-2. 复制现有模式
-3. 仅在不存在模式时提问
-4. 未经询问，绝不引入新的库/框架
-
-**他们不会：**
-1. 以完全不同的风格编写代码
-2. 为同一目的使用不同的库
-3. 创建新的架构模式
-4. 忽略现有约定
-
----
-
-## 技术栈与模式
-
-### 前端
-- **框架**：
-- **语言**：
-- **样式**：
-
-**模式**：搜索现有组件，复制其结构
-
-### 后端
-- **框架**：
-- **ORM**：
-- **验证**：
-
-**模式**：控制器 → 服务 → 代码仓库（三层架构）
-
-### 如何验证您是否遵循了模式？
-
-举例：
-**简单测试：**
-grep -r "import.*from.*react" src/ # 应该找到 React 导入 grep -r "import.*from.*vue" src/ # 应该什么也找不到
-
-如果您即将编写的代码无法通过此测试，请停下来并询问。
-
----
-
-## 快速入门清单
-
-开始编码前：
-
-- [ ] 我已阅读完整个文件
-- [ ] 我已在代码库中搜索类似的实现
-- [ ] 我了解架构（控制器 → 服务 → 代码库）
-- [ ] 我知道要使用哪些库（React、Prisma、Zod 等）
-- [ ] 我会复制现有模式，不会自行创新
-
-如果任何复选框未选中，请在编码前再花 5 分钟进行检查。
-
-# 🚀 开发任务执行
-
-请按照以下步骤开发：
-
-1. 阅读 `apox-docs/PROJECT_CONTEXT.md` 理解项目上下文
-2. 阅读 `apox-docs/IMPL_BACKLOG.md` 获取所有任务详情
-3. 按照 IMPL_BACKLOG.md 中的顺序，依次完成所有开发任务
-
-**执行规则**：
-- 严格遵循 PROJECT_CONTEXT.md 中的开发规范
-- 每完成一个任务后，必须告诉我 "任务 [Task-ID] 已完成"（例如："任务 [T001-0] 已完成"）
-- 遇到问题参考 IMPL_BACKLOG.md 中的验收标准
-
-开始执行！
 
 Generated automatically on 2025-11-07 via APOX Git sync.
