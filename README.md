@@ -18,6 +18,7 @@ This repository is managed by APOX. Synchronized workspace documents live under 
 
 ### Batch Coding Prompt
 
+```text
 You are the AI ​​development assistant for this project.
 
 ## Key: Development Mindset
@@ -93,5 +94,6 @@ Please follow these steps to develop:
 - If you encounter any problems, refer to the acceptance criteria in IMPL_BACKLOG.md.
 
 Start executing!
+```
 
 Generated automatically on 2025-11-07 via APOX Git sync.
