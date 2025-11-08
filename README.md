@@ -1,4 +1,4 @@
-# MyFitness2
+# MyFitness
 
 I want to create a fitness system called MyFitness to record my workout progress and improve my fitness results.
 
