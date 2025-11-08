@@ -1,0 +1,61 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: myfitness2-db-backup
+  namespace: myfitness2
+  labels:
+    app: myfitness2
+    component: db-backup
+  annotations:
+    backup.myfitness2.io/script-configmap: db-backup-script
+    backup.myfitness2.io/script-source: infra/scripts/backup.sh
+spec:
+  schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: myfitness2
+            component: db-backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: db-backup
+              image: public.ecr.aws/aws-cli/aws-cli:2.13.6
+              imagePullPolicy: IfNotPresent
+              resources:
+                requests:
+                  cpu: 250m
+                  memory: 256Mi
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -euo pipefail
+                  apk add --no-cache postgresql15-client >/tmp/pkg.log 2>&1
+                  chmod +x /opt/scripts/backup.sh
+                  /opt/scripts/backup.sh
+              envFrom:
+                - secretRef:
+                    name: db-backup-aws
+                - secretRef:
+                    name: db-backup-postgres
+                - configMapRef:
+                    name: db-backup-config
+              volumeMounts:
+                - name: backup-script
+                  mountPath: /opt/scripts/backup.sh
+                  subPath: backup.sh
+                  readOnly: true
+          volumes:
+            - name: backup-script
+              configMap:
+                name: db-backup-script
+                defaultMode: 0755
