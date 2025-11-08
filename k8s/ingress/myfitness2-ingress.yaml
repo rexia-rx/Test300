@@ -1,0 +1,43 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myfitness2-ingress
+  namespace: production
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+      add_header X-Content-Type-Options "nosniff" always;
+      add_header X-Frame-Options "DENY" always;
+      add_header X-XSS-Protection "1; mode=block" always;
+spec:
+  tls:
+    - hosts:
+        - myfitness2.com
+        - www.myfitness2.com
+      secretName: myfitness2-tls
+  rules:
+    - host: myfitness2.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-api
+                port:
+                  number: 3000
+    - host: www.myfitness2.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-api
+                port:
+                  number: 3000

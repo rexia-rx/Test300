@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ExerciseType {
+  STRENGTH
+  CARDIO
+  MOBILITY
+}
+
+model User {
+  id             String           @id @default(cuid())
+  email          String           @unique
+  passwordHash   String
+  displayName    String?
+  preferredUnits String           @default("metric")
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  workoutSessions WorkoutSession[]
+  exercises      Exercise[]
+}
+
+model WorkoutSession {
+  id              String           @id @default(cuid())
+  userId          String
+  startTime       DateTime         @default(now())
+  endTime         DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  loggedExercises LoggedExercise[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, startTime])
+}
+
+model Exercise {
+  id             String           @id @default(cuid())
+  name           String
+  type           ExerciseType
+  createdById    String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  loggedExercises LoggedExercise[]
+
+  createdBy User? @relation(fields: [createdById], references: [id])
+
+  @@index([name])
+}
+
+model LoggedExercise {
+  id         String          @id @default(cuid())
+  sessionId  String
+  exerciseId String
+  notes      String?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  session    WorkoutSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  exercise   Exercise        @relation(fields: [exerciseId], references: [id], onDelete: Restrict)
+  strengthSets StrengthSet[]
+  cardioEntry  CardioEntry?
+
+  @@index([sessionId])
+}
+
+model StrengthSet {
+  id               String         @id @default(cuid())
+  loggedExerciseId String
+  setNumber        Int
+  reps             Int
+  weight           Float
+  createdAt        DateTime       @default(now())
+  loggedExercise   LoggedExercise @relation(fields: [loggedExerciseId], references: [id], onDelete: Cascade)
+
+  @@index([loggedExerciseId])
+}
+
+model CardioEntry {
+  id               String         @id @default(cuid())
+  loggedExerciseId String        @unique
+  durationSeconds  Int?
+  distanceMeters   Float?
+  createdAt        DateTime       @default(now())
+  loggedExercise   LoggedExercise @relation(fields: [loggedExerciseId], references: [id], onDelete: Cascade)
+}
